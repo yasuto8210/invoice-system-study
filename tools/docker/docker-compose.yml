@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: invoice-db
+    restart: always
+    environment:
+      POSTGRES_DB: invoice
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: ../..                    # プロジェクトルート
+      dockerfile: tools/docker/Dockerfile
+    container_name: invoice-app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../..:/app
+    working_dir: /app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/invoice
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+volumes:
+  pgdata:

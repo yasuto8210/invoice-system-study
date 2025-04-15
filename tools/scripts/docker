@@ -1,0 +1,7 @@
+cd tools/docker
+
+# 初回ビルド
+docker-compose build
+
+# アプリ起動
+docker-compose up
