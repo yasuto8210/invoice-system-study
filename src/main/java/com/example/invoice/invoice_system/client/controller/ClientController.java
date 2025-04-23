@@ -4,6 +4,8 @@ import com.example.invoice.invoice_system.client.domain.Client;
 import com.example.invoice.invoice_system.client.dto.request.CreateClientRequest;
 import com.example.invoice.invoice_system.client.dto.response.ClientResponse;
 import com.example.invoice.invoice_system.client.repository.ClientRepository;
+import com.example.invoice.invoice_system.client.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,21 +13,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
-    private final ClientRepository clientRepository;
+    private final ClientService clientService;
 
-    public ClientController(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     @GetMapping
     public List<ClientResponse> getClients() {
-        return clientRepository.findAll().stream().map(Client::toResponse).toList();
+        return clientService.getClients();
     }
 
     @PostMapping
-    public ClientResponse createClient(@RequestBody CreateClientRequest request) {
-        Client client = request.toClient();
-        return Client.toResponse(clientRepository.save(client));
+    public ClientResponse createClient(@RequestBody @Valid CreateClientRequest request) {
+        return clientService.createClient(request);
     }
 
     // 他にも GET /{id}, PUT /{id}, DELETE /{id} など追加可能
