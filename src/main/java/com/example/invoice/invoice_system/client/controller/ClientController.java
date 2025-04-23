@@ -1,12 +1,9 @@
 package com.example.invoice.invoice_system.client.controller;
 
-import com.example.invoice.invoice_system.client.domain.Client;
 import com.example.invoice.invoice_system.client.dto.request.CreateClientRequest;
 import com.example.invoice.invoice_system.client.dto.response.ClientResponse;
-import com.example.invoice.invoice_system.client.repository.ClientRepository;
 import com.example.invoice.invoice_system.client.service.ClientService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
