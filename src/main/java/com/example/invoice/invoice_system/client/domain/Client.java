@@ -1,5 +1,6 @@
 package com.example.invoice.invoice_system.client.domain;
 
+import com.example.invoice.invoice_system.client.dto.response.ClientResponse;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +16,8 @@ public class Client {
     private String address;
     private String notes;
 
-    public Client() {}
+    public Client() {
+    }
 
     public Client(String name, String email, String phone, String address, String notes) {
         this.name = name;
@@ -47,5 +49,9 @@ public class Client {
 
     public String getNotes() {
         return notes;
+    }
+
+    public static ClientResponse toResponse(Client client) {
+        return new ClientResponse(client.getId(), client.getName(), client.getEmail(), client.getPhone(), client.getAddress(), client.getNotes());
     }
 }
