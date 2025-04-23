@@ -23,9 +23,9 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client createClient(@RequestBody CreateClientRequest request) {
+    public ClientResponse createClient(@RequestBody CreateClientRequest request) {
         Client client = request.toClient();
-        return clientRepository.save(client);
+        return Client.toResponse(clientRepository.save(client));
     }
 
     // 他にも GET /{id}, PUT /{id}, DELETE /{id} など追加可能
