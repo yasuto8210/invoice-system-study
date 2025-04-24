@@ -2,6 +2,7 @@ package com.example.invoice.invoice_system.client.service;
 
 import com.example.invoice.invoice_system.client.domain.Client;
 import com.example.invoice.invoice_system.client.dto.request.CreateClientRequest;
+import com.example.invoice.invoice_system.client.dto.request.UpdateClientRequest;
 import com.example.invoice.invoice_system.client.dto.response.ClientResponse;
 import com.example.invoice.invoice_system.client.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,11 @@ public class ClientService {
     }
 
     public ClientResponse createClient(CreateClientRequest request) {
+        Client client = request.toClient();
+        return Client.toResponse(clientRepository.save(client));
+    }
+
+    public ClientResponse updateClient(UpdateClientRequest request) {
         Client client = request.toClient();
         return Client.toResponse(clientRepository.save(client));
     }
