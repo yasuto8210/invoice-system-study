@@ -33,13 +33,14 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Wait for PostgreSQL
+      - name: Verify PostgreSQL is reachable from container
         run: |
-          for i in {1..10}; do
-            pg_isready -h db -p 5432 -U user && echo "Postgres is ready!" && break
-            echo "Waiting for postgres..."
-            sleep 3
-          done
+          apt-get update && apt-get install -y postgresql-client
+          echo "Checking connection to DB..."
+          pg_isready -h localhost -p 5432 -U user
 
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/invoice
+        run: |
+          ./gradlew build --no-daemon
