@@ -24,6 +24,11 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.getClients());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientResponse> getClient(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.getClient(id));
+    }
+
     @PostMapping
     public ResponseEntity<ClientResponse> createClient(@RequestBody @Valid CreateClientRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.createClient(request));

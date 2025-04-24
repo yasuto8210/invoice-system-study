@@ -20,6 +20,10 @@ public class ClientService {
         return clientRepository.findAll().stream().map(Client::toResponse).toList();
     }
 
+    public ClientResponse getClient(Long id) {
+        return clientRepository.findById(id).map(Client::toResponse).orElse(null);
+    }
+
     public ClientResponse createClient(CreateClientRequest request) {
         Client client = request.toClient();
         return Client.toResponse(clientRepository.save(client));
