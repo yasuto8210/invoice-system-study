@@ -36,7 +36,14 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientResponse> updateClient(@RequestBody @Valid UpdateClientRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(clientService.updateClient(request));
+    public ResponseEntity<Void> updateClientById(@RequestBody @Valid UpdateClientRequest request) {
+        clientService.updateClientById(request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClientById(@PathVariable Long id) {
+        clientService.deleteClientById(id);
+        return ResponseEntity.noContent().build();
     }
 }

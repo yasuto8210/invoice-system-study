@@ -30,8 +30,12 @@ public class ClientService {
         return Client.toResponse(clientRepository.save(client));
     }
 
-    public ClientResponse updateClient(UpdateClientRequest request) {
+    public void updateClientById(UpdateClientRequest request) {
         Client client = request.toClient();
-        return Client.toResponse(clientRepository.save(client));
+        clientRepository.save(client);
+    }
+
+    public void deleteClientById(Long id) {
+        clientRepository.deleteById(id);
     }
 }
